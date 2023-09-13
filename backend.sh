@@ -1,21 +1,26 @@
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-cp backend.service /etc/systemd/system/backend.service
-dnf install nodejs -y
+source common.sh
 
-useradd expense
+echo executing backend scripts
 
-mkdir /app
+curl -sL https://rpm.nodesource.com/setup_lts.x | bash >>$log_file
 
-curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip
+cp backend.service /etc/systemd/system/backend.service >>$log_file
+dnf install nodejs -y >>$log_file
+
+useradd expense >>$log_file
+
+mkdir /app >>$log_file
+
+curl -o /tmp/backend.zip https://expense-artifacts.s3.amazonaws.com/backend.zip >>$log_file
 cd /app
-unzip /tmp/backend.zip
+unzip /tmp/backend.zip >>$log_file
 
 
-npm install
-systemctl daemon-reload
-systemctl enable backend
-systemctl start backend
+npm install >>$log_file
+systemctl daemon-reload >>$log_file
+systemctl enable backend >>$log_file
+systemctl start backend >>$log_file
 
-dnf install mysql -y
+dnf install mysql -y >>$log_file
 
-mysql -h mysql.kdevopsb75.online -uroot -pExpenseApp@1 < /app/schema/backend.sql
+mysql -h mysql.kdevopsb75.online -uroot -pExpenseApp@1 < /app/schema/backend.sql >>$log_file
