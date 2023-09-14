@@ -29,7 +29,6 @@ else
 fi
 
 useradd expense &>>$log_file
-echo $?
 if [ $? -eq 0 ]; then
   echo Success
 else
