@@ -63,5 +63,6 @@ echo $?
 dnf install mysql -y &>>$log_file
 echo $?
 
-mysql -h mysql.kdevopsb75.online -uroot -pExpenseApp@1 < /app/schema/backend.sql &>>$log_file
+backend_root_password=$1
+mysql -h mysql.kdevopsb75.online -uroot -p$backend_root_password < /app/schema/backend.sql &>>$log_file
 echo $?
