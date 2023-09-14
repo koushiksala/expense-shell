@@ -6,25 +6,65 @@ echo executing backend scripts
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
 echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
 
 cp backend.service /etc/systemd/system/backend.service &>>$log_file
 echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
+
 dnf install nodejs -y &>>$log_file
 echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
 
 useradd expense &>>$log_file
 echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
+
+rm -rf /app &>>$log_file
+echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
 
 mkdir /app &>>$log_file
 cd /app
+
 
 download_and_extract
 
 
 npm install &>>$log_file
 echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
 systemctl daemon-reload &>>$log_file
 echo $?
+if [ $? -eq 0 ]; then
+  echo Success
+else
+  echo Failure
+fi
 systemctl enable backend &>>$log_file
 echo $?
 systemctl start backend &>>$log_file
