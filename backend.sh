@@ -10,7 +10,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 
 cp backend.service /etc/systemd/system/backend.service &>>$log_file
@@ -19,7 +19,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 
 dnf install nodejs -y &>>$log_file
@@ -28,7 +28,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 
 useradd expense &>>$log_file
@@ -36,7 +36,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 
 rm -rf /app &>>$log_file
@@ -45,7 +45,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 
 mkdir /app &>>$log_file
@@ -61,7 +61,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 systemctl daemon-reload &>>$log_file
 
@@ -69,7 +69,7 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
-  exit
+  exit 1
 fi
 systemctl enable backend &>>$log_file
 echo $?
