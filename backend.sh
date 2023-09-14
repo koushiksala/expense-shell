@@ -14,8 +14,14 @@ dnf install nodejs -y &>>$log_file
 
 stat_check
 
+id expense &>>$log_file
+if [ $? -ne 0 ]; then
+
 useradd expense &>>$log_file
+
+fi
 stat_check
+
 
 rm -rf /app &>>$log_file
 stat_check
