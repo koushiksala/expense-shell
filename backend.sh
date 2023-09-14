@@ -4,13 +4,19 @@ component=backend
 
 echo executing backend scripts
 
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
-stat_check
+type npm &>>$log_file
+if [ $? -ne 0 ]; then
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
+  stat_check
+
+  dnf install nodejs -y &>>$log_file
+  stat_check
+fi
 
 cp backend.service /etc/systemd/system/backend.service &>>$log_file
 stat_check
 
-dnf install nodejs -y &>>$log_file
+
 
 stat_check
 
