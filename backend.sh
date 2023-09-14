@@ -5,27 +5,30 @@ component=backend
 echo executing backend scripts
 
 curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
-echo $?
+
 if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 
 cp backend.service /etc/systemd/system/backend.service &>>$log_file
-echo $?
+
 if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 
 dnf install nodejs -y &>>$log_file
-echo $?
+
 if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 
 useradd expense &>>$log_file
@@ -33,14 +36,16 @@ if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 
 rm -rf /app &>>$log_file
-echo $?
+
 if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 
 mkdir /app &>>$log_file
@@ -51,18 +56,20 @@ download_and_extract
 
 
 npm install &>>$log_file
-echo $?
+
 if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 systemctl daemon-reload &>>$log_file
-echo $?
+
 if [ $? -eq 0 ]; then
   echo Success
 else
   echo Failure
+  exit
 fi
 systemctl enable backend &>>$log_file
 echo $?
