@@ -11,3 +11,8 @@ echo extract $component code
 unzip /tmp/$component.zip >> $log_file
 echo $?
 }
+
+stat_check()
+{
+
+}
